@@ -1,459 +1,316 @@
-    *, *::before, *::after { 
-        box-sizing: border-box; 
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Foundations - Complete Viva Study Guide (Chapters 4-10)</title>
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --primary-light: #e0f2fe;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border-color: #cbd5e1;
+            --code-bg: #f1f5f9;
+        }
 
-    body {
-        margin: 0;
-        padding: 20px;
-        background-color: #e2e8f0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        color: var(--text-main);
-        line-height: 1.5;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-        max-width: 960px;
-        margin: 0 auto;
-        background-color: var(--bg-page);
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        border: 1px solid var(--border-color);
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
 
-    /* Ice Blue Theme Aesthetics */
-    .doc-header {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        color: #ffffff;
-        padding: 20px 24px;
-        border-radius: 6px;
-        margin-bottom: 24px;
-        box-shadow: 0 4px 6px rgba(2, 132, 199, 0.15);
-    }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(2, 132, 199, 0.08);
+            padding: 2.5rem;
+            border-top: 6px solid var(--primary);
+        }
 
-    .doc-header h1 {
-        margin: 0;
-        font-size: 20pt;
-        letter-spacing: -0.02em;
-        color: #ffffff;
-        text-transform: uppercase;
-        font-weight: 800;
-    }
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 1.5rem;
+        }
 
-    .doc-header p {
-        margin: 6px 0 0 0;
-        font-size: 10pt;
-        color: var(--bg-ice);
-    }
-    
-    .chapter-banner {
-        background-color: var(--bg-ice);
-        border-left: 5px solid var(--primary);
-        padding: 10px 16px;
-        border-radius: 0 6px 6px 0;
-        margin-top: 28px;
-        margin-bottom: 14px;
-    }
+        header h1 {
+            color: var(--primary-dark);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
 
-    .chapter-banner h2 {
-        margin: 0;
-        font-size: 13pt;
-        color: var(--primary-dark);
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
-    }
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
 
-    .chapter-banner p {
-        margin: 2px 0 0 0;
-        font-size: 9pt;
-        color: var(--primary-deep);
-        font-weight: 500;
-    }
+        nav.toc {
+            background: var(--primary-light);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 2.5rem;
+        }
 
-    h3 {
-        font-size: 10.5pt;
-        color: var(--primary-dark);
-        border-bottom: 1.5px solid var(--accent);
-        padding-bottom: 4px;
-        margin-top: 16px;
-        margin-bottom: 8px;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-    }
+        nav.toc h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
 
-    /* Core One-Liners List */
-    ul.one-liners {
-        margin: 0;
-        padding-left: 20px;
-        font-size: 9pt;
-        line-height: 1.4;
-    }
+        nav.toc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0.5rem 1rem;
+        }
 
-    ul.one-liners li {
-        margin-bottom: 6px;
-        color: #1e293b;
-    }
+        nav.toc a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
 
-    ul.one-liners li strong {
-        color: var(--primary-dark);
-    }
+        nav.toc a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
 
-    /* Data Tables */
-    table.viva-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 8.5pt;
-        margin-top: 10px;
-        margin-bottom: 14px;
-        background-color: #ffffff;
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
-        overflow: hidden;
-    }
+        section {
+            margin-bottom: 3rem;
+        }
 
-    table.viva-table th {
-        background-color: var(--primary);
-        color: #ffffff;
-        text-align: left;
-        padding: 7px 10px;
-        font-weight: 600;
-        font-size: 8.5pt;
-    }
+        h2 {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.4rem;
+            margin-bottom: 1.2rem;
+        }
 
-    table.viva-table td {
-        padding: 7px 10px;
-        border-bottom: 1px solid #e2e8f0;
-        color: var(--text-muted);
-        vertical-align: top;
-    }
+        h3 {
+            color: var(--text-main);
+            font-size: 1.15rem;
+            margin: 1.2rem 0 0.5rem 0;
+        }
 
-    table.viva-table tr:nth-child(even) {
-        background-color: #f0f9ff;
-    }
+        p, ul {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
 
-    /* Diagram / Figure Boxes */
-    .figure-box {
-        background-color: #ffffff;
-        border: 1px dashed var(--primary);
-        border-radius: 6px;
-        padding: 12px 14px;
-        margin-top: 12px;
-        margin-bottom: 16px;
-        text-align: center;
-    }
+        ul {
+            padding-left: 1.5rem;
+        }
 
-    .figure-title {
-        font-size: 8.5pt;
-        font-weight: 700;
-        color: var(--primary-dark);
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        margin-bottom: 8px;
-    }
+        li {
+            margin-bottom: 0.4rem;
+        }
 
-    .diagram-flow {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        gap: 6px;
-        flex-wrap: wrap;
-    }
+        strong {
+            color: var(--text-main);
+        }
 
-    .diagram-step {
-        background-color: var(--bg-ice);
-        border: 1px solid #7dd3fc;
-        color: var(--primary-deep);
-        padding: 6px 10px;
-        border-radius: 4px;
-        font-size: 8pt;
-        font-weight: 600;
-        flex: 1;
-        min-width: 110px;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem 0;
+            font-size: 0.95rem;
+        }
 
-    .diagram-arrow {
-        color: var(--primary);
-        font-weight: bold;
-        font-size: 10pt;
-    }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
 
-    .badge-process {
-        display: inline-block;
-        background-color: var(--accent);
-        color: var(--primary-dark);
-        font-size: 7.5pt;
-        font-weight: 700;
-        padding: 2px 6px;
-        border-radius: 3px;
-        text-transform: uppercase;
-        margin-right: 4px;
-    }
+        th {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+        }
 
-    .doc-footer {
-        margin-top: 30px;
-        padding-top: 10px;
-        border-top: 1px solid var(--border-color);
-        display: flex;
-        justify-content: space-between;
-        font-size: 8.5pt;
-        color: #64748b;
-    }
+        .diagram-box {
+            background: var(--code-bg);
+            border: 1px dashed var(--primary);
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            margin: 1rem 0;
+            white-space: pre-wrap;
+        }
 
-    @media (max-width: 600px) {
-        body { padding: 10px; }
-        .container { padding: 16px; }
-        .diagram-flow { flex-direction: column; }
-        .diagram-arrow { transform: rotate(90deg); margin: 2px 0; }
-    }
-</style>
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
 
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Agent Foundations</h1>
+            <p>Complete Viva & Exam Prep Guide (Chapters 4 through 10)</p>
+        </header>
 
-<!-- CHAPTER 4 -->
-<div class="chapter-banner">
-    <h2>Chapter 4: AI Prompting in 2026</h2>
-    <p>13 Core Concepts, 80% Real AI Value &amp; System Prompting Principles</p>
-</div>
+        <nav class="toc">
+            <h3>Quick Navigation</h3>
+            <ul>
+                <li><a href="#ch4">Chapter 4: AI Prompting in 2026</a></li>
+                <li><a href="#ch5">Chapter 5: Claude & ChatGPT 101</a></li>
+                <li><a href="#ch6">Chapter 6: Skills & Connectors</a></li>
+                <li><a href="#ch7">Chapter 7: General Agents on the Web</a></li>
+                <li><a href="#ch8">Chapter 8: Workflow Design & Diagnosis</a></li>
+                <li><a href="#ch9">Chapter 9: Governance & Responsible Use</a></li>
+                <li><a href="#ch10">Chapter 10: Code You Never Write</a></li>
+            </ul>
+        </nav>
 
-<h3>I. Core Viva One-Liners (The 13 Key Concepts)</h3>
-<ul class="one-liners">
-    <li><strong>1. Novice vs. Power User:</strong> A power-user prompt is a full operational briefing containing files, goals, limits, and exact asks.</li>
-    <li><strong>2. Training vs. Retrieval:</strong> AI learned by reading; strong where data is dense, prone to hallucination where internet data is thin.</li>
-    <li><strong>3. Search vs. Deep Research:</strong> Model answers stem from static weights, web retrieval, or multi-step reasoning depending on prompt phrasing.</li>
-    <li><strong>4. Context Window Invariant:</strong> The model is stateless; it knows strictly what is inside the current context window.</li>
-    <li><strong>5. Reasoning &amp; Thinking Modes:</strong> Modern reasoning models execute multi-second thinking loops prior to output generation.</li>
-    <li><strong>6. Sycophancy &amp; Rubrics:</strong> AI naturally leans toward agreeing with users; neutral instructions with a scored rubric remove bias.</li>
-    <li><strong>7. The Iteration Loop:</strong> High quality requires a 4-stage loop: Context input → Generation → Feedback → Expansion.</li>
-    <li><strong>8. Multimodal Processing:</strong> Ingestion of text, images, spreadsheets, and audio simultaneously with asymmetric strengths.</li>
-    <li><strong>9. Artifacts &amp; Code Generation:</strong> Structured prompts generate interactive, self-contained web applications for instant preview.</li>
-    <li><strong>10. Verified Code Execution:</strong> Models run programmatic sandboxes for exact values; users must enforce verification.</li>
-    <li><strong>11. Desktop Apps &amp; Permissions:</strong> Desktop agents execute file actions; always enforce the least privilege principle.</li>
-    <li><strong>12. Model Economics:</strong> Cost and latency vary heavily across modalities, requiring intelligent task routing.</li>
-    <li><strong>13. Multi-Model Consensus:</strong> Having competing models grade each other yields high-reliability signals without human intervention.</li>
-</ul>
+        <main>
+            <!-- CHAPTER 4 -->
+            <section id="ch4">
+                <h2>Chapter 4: AI Prompting in 2026</h2>
+                <p>Focuses on advanced modern prompt engineering paradigms, contextual constraint framing, and anti-sycophancy execution.</p>
+                <ul>
+                    <li><strong>Core One-Liner 1:</strong> Modern prompts rely on rigid structural constraints and explicit role-framing rather than open-ended conversational suggestions.</li>
+                    <li><strong>Core One-Liner 2:</strong> Anti-sycophancy scoring forces models to evaluate underlying logic rather than validating user bias.</li>
+                    <li><strong>Prompt Briefing Element:</strong> Defines boundaries, output schemas, tone parameters, and negative constraints upfront.</li>
+                </ul>
+                <div class="diagram-box">
+[Prompt Input] ➔ [Anti-Sycophancy Filter] ➔ [Constraint Enforcer] ➔ [Structured Output]
+                </div>
+            </section>
 
-<h3>II. Visual Figure 4.1: Power-User Briefing &amp; Iteration Cycle</h3>
-<div class="figure-box">
-    <div class="figure-title">Figure 4.1: Power-User Prompt Briefing &amp; Iteration Cycle</div>
-    <div class="diagram-flow">
-        <div class="diagram-step">1. Context Stack<br><small>(Files + Profile)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">2. Boundaries<br><small>(Goal + Limits)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">3. Exact Ask<br><small>(Task + Format)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">4. Scored Rubric<br><small>(Anti-Sycophancy)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">5. Output Refinement<br><small>(Expand &amp; Finalize)</small></div>
+            <!-- CHAPTER 5 -->
+            <section id="ch5">
+                <h2>Chapter 5: Claude & ChatGPT 101 Crash Course</h2>
+                <p>Explores interface architecture, model escalation paths, and context management across platforms.</p>
+                <ul>
+                    <li><strong>Core One-Liner 1:</strong> Cockpit principles govern how users interact with dual-engine AI ecosystems (ChatGPT vs Claude).</li>
+                    <li><strong>Core One-Liner 2:</strong> Projects and Artifacts provide persistent workspace memory compared to ephemeral chat windows.</li>
+                    <li><strong>Model Escalation Rule:</strong> Switch to higher reasoning models only when multi-step logic bottlenecks occur.</li>
+                </ul>
+            </section>
+
+            <!-- CHAPTER 6 -->
+            <section id="ch6">
+                <h2>Chapter 6: Skills & Connectors Crash Course</h2>
+                <p>Covers modular extensibility, custom repository structures, and secure connector authorizations.</p>
+                <ul>
+                    <li><strong>Core One-Liner 1:</strong> A `SKILL.md` file serves as the declarative configuration schema loading metadata and instructions on-demand.</li>
+                    <li><strong>Core One-Liner 2:</strong> Connectors bridge external APIs securely while maintaining token budget restrictions.</li>
+                </ul>
+                <div class="diagram-box">
+[User Query] ➔ [Skill Matcher] ➔ [SKILL.md Instruction Load] ➔ [Tool Execution]
+                </div>
+            </section>
+
+            <!-- CHAPTER 7 -->
+            <section id="ch7">
+                <h2>Chapter 7: General Agents on the Web</h2>
+                <p>Analyzes browser-based execution, remote sessions, account spines, and safety approvals.</p>
+                <ul>
+                    <li><strong>Core One-Liner 1:</strong> Remote cloud sessions isolate agent browser activity from local client hardware.</li>
+                    <li><strong>Core One-Liner 2:</strong> Mobile out-of-band approvals require explicit user validation before critical web actions execute.</li>
+                    <li><strong>Three File Tiers:</strong> Temporary scratchpads, session artifacts, and persistent user memory files.</li>
+                </ul>
+            </section>
+
+            <!-- CHAPTER 8 -->
+            <section id="ch8">
+                <h2>Chapter 8: Workflow Design & Diagnosis</h2>
+                <p>Outlines iterative engineering loops, output structuring, and bottleneck troubleshooting.</p>
+                <ul>
+                    <li><strong>Core One-Liner 1:</strong> The 4-Step Iteration Loop consists of Ideate, Prototype, Feedback, and Refine.</li>
+                    <li><strong>Core One-Liner 2:</strong> Workflow bottlenecks stem from ambiguous context boundaries or unstructured handoffs.</li>
+                </ul>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Loop Stage</th>
+                            <th>Objective</th>
+                            <th>Primary Diagnostic Metric</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1. Ideate</td>
+                            <td>Define core problem statement</td>
+                            <td>Requirement clarity score</td>
+                        </tr>
+                        <tr>
+                            <td>2. Prototype</td>
+                            <td>Build minimal viable agent flow</td>
+                            <td>Execution success rate</td>
+                        </tr>
+                        <tr>
+                            <td>3. Feedback</td>
+                            <td>Evaluate edge cases and errors</td>
+                            <td>Error frequency per run</td>
+                        </tr>
+                        <tr>
+                            <td>4. Refine</td>
+                            <td>Optimize prompt & tool logic</td>
+                            <td>Token efficiency & latency</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- CHAPTER 9 -->
+            <section id="ch9">
+                <h2>Chapter 9: Governance, Risk & Responsible Use</h2>
+                <p>Focuses on safety frameworks, risk mitigation, and human-in-the-loop accountability.</p>
+                <ul>
+                    <li><strong>Core One-Liner 1:</strong> The 4-Question Governance Model evaluates harm, bias, data privacy, and accountability.</li>
+                    <li><strong>Core One-Liner 2:</strong> Habitual safety requires automated PII redaction prior to LLM payload transmission.</li>
+                    <li><strong>Three Safe Answers:</strong> Refuse harmful requests safely, provide bounded approximations, or escalate to human review.</li>
+                </ul>
+            </section>
+
+            <!-- CHAPTER 10 -->
+            <section id="ch10">
+                <h2>Chapter 10: Code You Never Write</h2>
+                <p>Examines non-coder agentic coding paradigms, execution sandboxes, and self-healing interpreters.</p>
+                <ul>
+                    <li><strong>Core One-Liner 1:</strong> Verified execution sandboxes allow non-programmers to test code deterministically without local environment setup.</li>
+                    <li><strong>Core One-Liner 2:</strong> Self-healing error loops catch stack traces and automatically regenerate fixes in real-time.</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>AI Agent Foundations Viva Prep Guide &bull; Built for Excellence</p>
+        </footer>
     </div>
-</div>
-
-<h3>III. Key Named Processes in Prompting</h3>
-<table class="viva-table">
-    <thead>
-        <tr>
-            <th style="width: 28%;">Named Process</th>
-            <th style="width: 32%;">Mechanism / Definition</th>
-            <th style="width: 40%;">Viva Defense Points</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><span class="badge-process">Process</span> The 4-Part Briefing</td>
-            <td>Files + Goal + Limits + Exact Ask</td>
-            <td>Replaces single-sentence prompts with full context to eliminate AI guessing.</td>
-        </tr>
-        <tr>
-            <td><span class="badge-process">Process</span> Rubric-Based Evaluation</td>
-            <td>Scoring outputs against explicit criteria</td>
-            <td>Prevents AI sycophancy by forcing objective numeric assessment.</td>
-        </tr>
-        <tr>
-            <td><span class="badge-process">Process</span> Anti-Slop Filtering</td>
-            <td>Imposing strict negative constraints</td>
-            <td>Eliminates generic AI filler phrases prior to prose generation.</td>
-        </tr>
-        <tr>
-            <td><span class="badge-process">Process</span> Multi-Model Evaluation</td>
-            <td>Cross-grading across competing models</td>
-            <td>Uses Claude to critique ChatGPT to detect hallucinations automatically.</td>
-        </tr>
-    </tbody>
-</table>
-
-<!-- CHAPTER 5 -->
-<div class="chapter-banner">
-    <h2>Chapter 5: Claude &amp; ChatGPT 101 Crash Course</h2>
-    <p>Platform Architecture, Workspaces, Reasoning Modes, and Artifact Management</p>
-</div>
-
-<h3>I. Core Viva One-Liners (Platform Fundamentals)</h3>
-<ul class="one-liners">
-    <li><strong>Cockpit Principle:</strong> AI interfaces act like aircraft cockpits—core skills transfer across tools, but exact button layouts differ.</li>
-    <li><strong>State Summary Habit:</strong> Request a concise "state summary" when a long chat hits context limits to seed a fresh clean chat.</li>
-    <li><strong>Artifacts vs. Chat Scroll:</strong> Completed work (docs, code, SVG) belongs in isolated Artifact/Canvas workspace blocks.</li>
-    <li><strong>Model Escalation Rule:</strong> Start with fast default models; escalate to high-reasoning tiers only for deep logic or complex code.</li>
-</ul>
-
-<h3>II. Ecosystem Comparison Matrix</h3>
-<table class="viva-table">
-    <thead>
-        <tr>
-            <th style="width: 25%;">Feature Concept</th>
-            <th style="width: 37.5%;">Anthropic (Claude)</th>
-            <th style="width: 37.5%;">OpenAI (ChatGPT)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><span class="badge-process">Workspace</span> Context Separation</td>
-            <td><strong>Projects:</strong> Knowledge folders with persistent custom instructions.</td>
-            <td><strong>Projects / GPTs:</strong> Scoped memory boundaries with system prompts.</td>
-        </tr>
-        <tr>
-            <td><span class="badge-process">Output</span> Workspace Canvas</td>
-            <td><strong>Artifacts:</strong> Renders web apps, SVGs, and docs side-by-side.</td>
-            <td><strong>Canvas:</strong> Dedicated inline text and code co-creation space.</td>
-        </tr>
-        <tr>
-            <td><span class="badge-process">Reasoning</span> Deep Thought Mode</td>
-            <td><strong>Extended Thinking:</strong> Explicit token reasoning visibility toggle.</td>
-            <td><strong>Reasoning Models (o1/o3-mini):</strong> Automated multi-second thinking chains.</td>
-        </tr>
-    </tbody>
-</table>
-
-<!-- CHAPTER 6 -->
-<div class="chapter-banner">
-    <h2>Chapter 6: Skills &amp; Connectors Crash Course</h2>
-    <p>Portable Instructions (SKILL.md) &amp; Live App API Connectors</p>
-</div>
-
-<h3>I. Core Viva One-Liners (Extending Capabilities)</h3>
-<ul class="one-liners">
-    <li><strong>Skills Definition:</strong> Reusable instruction packages (defined via <code>SKILL.md</code>) teaching AI *how* to perform a multi-step job.</li>
-    <li><strong>Connectors Definition:</strong> Real-time authorization bridges giving AI read/write access to external app APIs (Drive, Slack, Notion).</li>
-    <li><strong>Permission Inheritance:</strong> Connectors strictly inherit user privileges; AI cannot reach data the authenticated user cannot access.</li>
-    <li><strong>Skill vs. Connector:</strong> A Connector represents <em>access</em> (what AI reaches); a Skill represents <em>expertise</em> (how AI executes).</li>
-</ul>
-
-<h3>II. Visual Figure 6.1: SKILL.md Structural Specification</h3>
-<div class="figure-box">
-    <div class="figure-title">Figure 6.1: SKILL.md Structural Specification</div>
-    <div class="diagram-flow">
-        <div class="diagram-step">Folder / Bundle<br><small>(my-custom-skill/)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">Spec File<br><small>(SKILL.md)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">Metadata Header<br><small>(Name + Trigger Rule)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">Instructions<br><small>(Plain English Process)</small></div>
-    </div>
-</div>
-
-<!-- CHAPTER 7 -->
-<div class="chapter-banner">
-    <h2>Chapter 7: General Agents on the Web</h2>
-    <p>Remote Cloud Sessions, Account Spine, Three File Tiers &amp; Mobile Approvals</p>
-</div>
-
-<h3>I. Core Viva One-Liners (Web Agent Architecture)</h3>
-<ul class="one-liners">
-    <li><strong>1. Web Agent Definition:</strong> Browser-based agents operating in isolated remote cloud environments to navigate the web and execute tools.</li>
-    <li><strong>2. Account Spine:</strong> Agent state and identity are anchored across logins, unifying sessions, connectors, and approvals across devices.</li>
-    <li><strong>3. Three File Tiers:</strong> Files are managed across <em>Tier 1: Ephemeral Chat Cache</em>, <em>Tier 2: Workspace Knowledge</em>, and <em>Tier 3: Connected Cloud Storage</em>.</li>
-    <li><strong>4. Mobile Approvals Loop:</strong> High-risk external actions trigger real-time push prompts requiring mobile human sign-off.</li>
-</ul>
-
-<h3>II. Visual Figure 7.1: The Three File Tiers Custody Standard</h3>
-<div class="figure-box">
-    <div class="figure-title">Figure 7.1: The Three File Tiers Custody Standard</div>
-    <div class="diagram-flow">
-        <div class="diagram-step">Tier 1: Ephemeral<br><small>(Session Temp Cache)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">Tier 2: Workspace<br><small>(Project Knowledge)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">Tier 3: Connected<br><small>(Cloud Storage / Drive)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">Account Spine<br><small>(Identity &amp; Approvals)</small></div>
-    </div>
-</div>
-
-<!-- CHAPTER 8 -->
-<div class="chapter-banner">
-    <h2>Chapter 8: Workflow Design &amp; Diagnosis</h2>
-    <p>The 4-Step Iteration Loop, Four Output Formats, and Workflow Diagnosis</p>
-</div>
-
-<h3>I. Core Viva One-Liners &amp; Visual Figure 8.1</h3>
-<ul class="one-liners">
-    <li><strong>The 4-Step Loop:</strong> Outstanding AI outcomes stem from executing <strong>Ideate → Prototype → Feedback → Refine</strong>.</li>
-    <li><strong>Four Formats:</strong> AI generates outputs as <em>Inline Text</em>, <em>Structured Artifacts</em>, <em>Interactive Web Apps</em>, or <em>Executed Code Output</em>.</li>
-</ul>
-<div class="figure-box">
-    <div class="figure-title">Figure 8.1: Workflow Iteration &amp; Output Format Cycle</div>
-    <div class="diagram-flow">
-        <div class="diagram-step">1. Ideate<br><small>(Options)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">2. Prototype<br><small>(Draft)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">3. Feedback<br><small>(Score &amp; Critique)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">4. Refine<br><small>(Polished Work)</small></div>
-    </div>
-</div>
-
-<!-- CHAPTER 9 -->
-<div class="chapter-banner">
-    <h2>Chapter 9: Governance, Risk &amp; Responsible Use</h2>
-    <p>The 4-Question Governance Model &amp; Human-in-the-Loop Accountability</p>
-</div>
-
-<h3>I. Core Viva One-Liners &amp; Visual Figure 9.1</h3>
-<ul class="one-liners">
-    <li><strong>The 4 Questions:</strong> Evaluate <em>Data Private?</em>, <em>High Error Impact?</em>, <em>Easy Verification?</em>, and <em>Accountable Human Owner?</em>.</li>
-    <li><strong>Verification Asymmetry:</strong> Delegate to AI only when verifying output takes less time than manual execution.</li>
-</ul>
-<div class="figure-box">
-    <div class="figure-title">Figure 9.1: The 4-Question Governance &amp; Risk Flowchart</div>
-    <div class="diagram-flow">
-        <div class="diagram-step">Q1: Data Private?<br><small>(Sensitive?)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">Q2: Error Impact?<br><small>(Catastrophic?)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">Q3: Verifiable?<br><small>(Easy Review?)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">Q4: Owner?<br><small>(HITL Sign-off)</small></div>
-    </div>
-</div>
-
-<!-- CHAPTER 10 -->
-<div class="chapter-banner">
-    <h2>Chapter 10: Code You Never Write</h2>
-    <p>Python Sandbox Execution, Deterministic Math &amp; Self-Healing Error Loops</p>
-</div>
-
-<h3>I. Core Viva One-Liners &amp; Visual Figure 10.1</h3>
-<ul class="one-liners">
-    <li><strong>Python as AI Glue:</strong> AI executes Python scripts in sandboxes to deliver deterministic math and exact data transformations.</li>
-    <li><strong>Self-Healing Error Loop:</strong> When execution fails, the agent captures stack traces, fixes the code, and re-runs automatically.</li>
-</ul>
-<div class="figure-box">
-    <div class="figure-title">Figure 10.1: Verified Python Sandbox Execution Cycle</div>
-    <div class="diagram-flow">
-        <div class="diagram-step">1. Task Request<br><small>(Data / Math)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">2. Code Writing<br><small>(Script Generation)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">3. Sandbox Run<br><small>(Isolated Execution)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">4. Self-Healing<br><small>(Auto Debugging)</small></div>
-        <div class="diagram-arrow">→</div>
-        <div class="diagram-step">5. Verified Output<br><small>(Exact Math Result)</small></div>
-    </div>
-</div>
-
-<!-- Footer -->
-<div class="doc-footer">
-    <span>Panaversity Agent Factory — Complete Viva Master Guide (Chapters 4–10)</span>
-    <span>Ice Blue Theme</span>
-</div>
+</body>
+</html>
